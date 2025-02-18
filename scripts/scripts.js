@@ -375,12 +375,6 @@ async function loadPage() {
 
 loadPage();
 
-(async function loadDa() {
-  if (!new URL(window.location.href).searchParams.get('dapreview')) return;
-  // eslint-disable-next-line import/no-unresolved
-  import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage));
-}());
-
 
 /**
  * Returns the true origin of the current page in the browser.
@@ -405,3 +399,9 @@ export function getHref() {
   const urlParams = new URLSearchParams(parentLocation.search);
   return `${parentLocation.origin}${urlParams.get('path')}`;
 }
+
+(async function loadDa() {
+  if (!new URL(window.location.href).searchParams.get('dapreview')) return;
+  // eslint-disable-next-line import/no-unresolved
+  import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage));
+}());
