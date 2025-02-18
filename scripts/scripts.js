@@ -367,15 +367,6 @@ export function getConsent(topic) {
   return true;
 }
 
-async function loadPage() {
-  await loadEager(document);
-  await loadLazy(document);
-  loadDelayed();
-}
-
-loadPage();
-
-
 /**
  * Returns the true origin of the current page in the browser.
  * If the page is running in a iframe with srcdoc, the ancestor origin is returned.
@@ -394,11 +385,18 @@ export function getOrigin() {
  */
 export function getHref() {
   if (window.location.href !== 'about:srcdoc') return window.location.href;
-
   const { location: parentLocation } = window.parent;
   const urlParams = new URLSearchParams(parentLocation.search);
   return `${parentLocation.origin}${urlParams.get('path')}`;
 }
+
+async function loadPage() {
+  await loadEager(document);
+  await loadLazy(document);
+  loadDelayed();
+}
+
+loadPage();
 
 (async function loadDa() {
   if (!new URL(window.location.href).searchParams.get('dapreview')) return;
