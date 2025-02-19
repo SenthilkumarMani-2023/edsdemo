@@ -1,5 +1,3 @@
-import { getHref, getOrigin } from './scripts';
-
 const ALLOWED_CONFIGS = ['prod', 'stage', 'dev'];
 
 /**
@@ -10,8 +8,7 @@ const ALLOWED_CONFIGS = ['prod', 'stage', 'dev'];
  * @returns {string} - environment identifier (dev, stage or prod'.
  */
 export const calcEnvironment = () => {
-  const href = getHref();
-  const host = getOrigin();
+  const { host, href } = window.location;
   let environment = 'prod';
   if (href.includes('.aem.page') || host.includes('staging')) {
     environment = 'stage';
